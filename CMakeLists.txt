@@ -5,7 +5,6 @@ project(SCAPMS VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_AUTOMOC ON)
 
 include(GNUInstallDirs)
 
@@ -48,6 +47,7 @@ target_include_directories(scapms_model
 
 find_package(Qt6 COMPONENTS Widgets QUIET)
 if(Qt6_FOUND)
+    set(CMAKE_AUTOMOC ON)
     add_executable(scapms
         src/main.cpp
         src/gui/MainWindow.cpp
@@ -64,5 +64,9 @@ else()
     target_link_libraries(scapms PRIVATE scapms_model)
 endif()
 
+add_executable(scapms_tests tests/ScapmsTests.cpp)
+target_link_libraries(scapms_tests PRIVATE scapms_model)
+
 enable_testing()
 add_test(NAME scapms_smoke_test COMMAND scapms)
+add_test(NAME scapms_unit_tests COMMAND scapms_tests)

@@ -1,5 +1,6 @@
 #include "scapms/model/GeneralPatient.h"
 
+#include <stdexcept>
 #include <utility>
 
 namespace scapms {
