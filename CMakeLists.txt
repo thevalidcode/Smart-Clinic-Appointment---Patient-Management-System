@@ -56,6 +56,12 @@ if(Qt6_FOUND)
         src/gui/QueuePanel.cpp
         src/gui/SearchSortPanel.cpp
         src/gui/ReportsPanel.cpp
+        include/scapms/gui/MainWindow.h
+        include/scapms/gui/PatientPanel.h
+        include/scapms/gui/AppointmentPanel.h
+        include/scapms/gui/QueuePanel.h
+        include/scapms/gui/SearchSortPanel.h
+        include/scapms/gui/ReportsPanel.h
     )
     target_compile_definitions(scapms PRIVATE SCAPMS_WITH_QT)
     target_link_libraries(scapms PRIVATE scapms_model Qt6::Widgets)
@@ -68,5 +74,5 @@ add_executable(scapms_tests tests/ScapmsTests.cpp)
 target_link_libraries(scapms_tests PRIVATE scapms_model)
 
 enable_testing()
-add_test(NAME scapms_smoke_test COMMAND scapms)
+add_test(NAME scapms_smoke_test COMMAND scapms --smoke)
 add_test(NAME scapms_unit_tests COMMAND scapms_tests)

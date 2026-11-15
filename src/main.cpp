@@ -14,6 +14,13 @@
 
 int main(int argc, char* argv[]) {
 #ifdef SCAPMS_WITH_QT
+    if (argc > 1 && std::string(argv[1]) == "--smoke") {
+        scapms::ClinicManager manager;
+        manager.patients().registerPatient(std::make_unique<scapms::GeneralPatient>(
+            "P001", "Jane Doe", 34, "0712345678", "Dr Smith"));
+        std::cout << manager.database().patients().front()->getDisplayDescription() << '\n';
+        return 0;
+    }
     QApplication application(argc, argv);
     scapms::MainWindow window;
     window.show();

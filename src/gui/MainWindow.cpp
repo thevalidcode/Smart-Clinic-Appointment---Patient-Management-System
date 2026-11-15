@@ -12,7 +12,9 @@
 #include <QApplication>
 #include <QKeySequence>
 #include <QLabel>
+#include <QMenuBar>
 #include <QMessageBox>
+#include <QStatusBar>
 #include <QTabWidget>
 #include <QTimer>
 #include <QVBoxLayout>
