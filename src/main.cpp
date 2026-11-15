@@ -10,6 +10,7 @@
 #include "scapms/gui/MainWindow.h"
 
 #include <QApplication>
+#include <QStyleFactory>
 #endif
 
 int main(int argc, char* argv[]) {
@@ -21,7 +22,13 @@ int main(int argc, char* argv[]) {
         std::cout << manager.database().patients().front()->getDisplayDescription() << '\n';
         return 0;
     }
+    // Avoid loading the GTK desktop theme, whose schema may be incomplete on
+    // systems using a minimal or mixed desktop environment.
+    qputenv("QT_QPA_PLATFORMTHEME", "generic");
     QApplication application(argc, argv);
+    if (QStyleFactory::keys().contains("Fusion", Qt::CaseInsensitive)) {
+        application.setStyle("Fusion");
+    }
     scapms::MainWindow window;
     window.show();
     return application.exec();
