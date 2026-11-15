@@ -22,6 +22,13 @@ std::string GeneralPatient::getDisplayDescription() const {
     return "General patient";
 }
 
+std::unique_ptr<PatientRecord> GeneralPatient::clone() const {
+    auto copy = std::make_unique<GeneralPatient>(
+        getPatientId(), getFullName(), getAge(), getContactInformation(), preferredDoctor_);
+    for (const Appointment& appointment : getAppointments()) copy->scheduleAppointment(appointment);
+    return copy;
+}
+
 const std::string& GeneralPatient::getPreferredDoctor() const noexcept {
     return preferredDoctor_;
 }

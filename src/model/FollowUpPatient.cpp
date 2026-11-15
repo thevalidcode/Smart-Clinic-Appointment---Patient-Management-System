@@ -23,6 +23,14 @@ std::string FollowUpPatient::getDisplayDescription() const {
     return "Follow-up patient";
 }
 
+std::unique_ptr<PatientRecord> FollowUpPatient::clone() const {
+    auto copy = std::make_unique<FollowUpPatient>(
+        getPatientId(), getFullName(), getAge(), getContactInformation(),
+        previousAppointmentId_, followUpReason_);
+    for (const Appointment& appointment : getAppointments()) copy->scheduleAppointment(appointment);
+    return copy;
+}
+
 const std::string& FollowUpPatient::getPreviousAppointmentId() const noexcept {
     return previousAppointmentId_;
 }

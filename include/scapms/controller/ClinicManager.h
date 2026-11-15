@@ -26,12 +26,12 @@ public:
 
 private:
     ClinicDatabase database_;
+    UndoController undoController_;
     PatientController patientController_;
     AppointmentController appointmentController_;
     QueueController queueController_;
     SearchEngine searchEngine_;
     SortEngine sortEngine_;
-    UndoController undoController_;
 };
 
 } // namespace scapms

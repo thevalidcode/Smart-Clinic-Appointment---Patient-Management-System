@@ -15,6 +15,7 @@ public:
 
     PatientCategory getCategory() const noexcept override;
     std::string getDisplayDescription() const override;
+    std::unique_ptr<PatientRecord> clone() const override;
 
     const std::string& getPreviousAppointmentId() const noexcept;
     const std::string& getFollowUpReason() const noexcept;

@@ -15,6 +15,7 @@ public:
 
     PatientCategory getCategory() const noexcept override;
     std::string getDisplayDescription() const override;
+    std::unique_ptr<PatientRecord> clone() const override;
 
     const std::string& getEmergencyDescription() const noexcept;
     int getTriageLevel() const noexcept;

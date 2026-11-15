@@ -23,6 +23,14 @@ std::string EmergencyPatient::getDisplayDescription() const {
     return "Emergency patient (triage " + std::to_string(triageLevel_) + ")";
 }
 
+std::unique_ptr<PatientRecord> EmergencyPatient::clone() const {
+    auto copy = std::make_unique<EmergencyPatient>(
+        getPatientId(), getFullName(), getAge(), getContactInformation(),
+        emergencyDescription_, triageLevel_);
+    for (const Appointment& appointment : getAppointments()) copy->scheduleAppointment(appointment);
+    return copy;
+}
+
 const std::string& EmergencyPatient::getEmergencyDescription() const noexcept {
     return emergencyDescription_;
 }

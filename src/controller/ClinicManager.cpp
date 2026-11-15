@@ -4,8 +4,9 @@ namespace scapms {
 
 ClinicManager::ClinicManager()
     : database_( ),
-      patientController_(database_),
-      appointmentController_(database_),
+      undoController_(),
+      patientController_(database_, &undoController_),
+      appointmentController_(database_, &undoController_),
       queueController_(database_) {}
 
 ClinicDatabase& ClinicManager::database() noexcept { return database_; }

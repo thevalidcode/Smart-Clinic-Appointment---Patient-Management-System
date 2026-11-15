@@ -118,6 +118,31 @@ void testUndoStack() {
     assert(!undo.canUndo());
 }
 
+void testControllerUndoOperations() {
+    scapms::ClinicManager manager;
+    manager.patients().registerPatient(std::make_unique<scapms::GeneralPatient>(
+        "P001", "Before Edit", 30, "0700000001"));
+    assert(manager.undo().canUndo());
+    manager.undo().undo();
+    assert(manager.database().patients().empty());
+
+    manager.patients().registerPatient(std::make_unique<scapms::GeneralPatient>(
+        "P001", "Before Edit", 30, "0700000001"));
+    manager.patients().editPatient("P001", "After Edit", 31, "0700000002");
+    manager.undo().undo();
+    assert(manager.database().findPatient("P001")->getFullName() == "Before Edit");
+    assert(manager.database().findPatient("P001")->getAge() == 30);
+
+    manager.appointments().schedule({"A001", "P001", "2026-11-15", "09:00",
+                                     "Dr Smith", "Review"});
+    manager.appointments().complete("A001");
+    manager.undo().undo();
+    assert(manager.database().findAppointment("A001")->getStatus()
+           == scapms::AppointmentStatus::Pending);
+    manager.undo().undo();
+    assert(manager.database().findAppointment("A001") == nullptr);
+}
+
 } // namespace
 
 int main() {
@@ -126,5 +151,6 @@ int main() {
     testManualAlgorithms();
     testCsvRoundTrip();
     testUndoStack();
+    testControllerUndoOperations();
     return 0;
 }

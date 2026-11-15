@@ -7,9 +7,11 @@
 
 namespace scapms {
 
+class UndoController;
+
 class PatientController {
 public:
-    explicit PatientController(ClinicDatabase& database);
+    explicit PatientController(ClinicDatabase& database, UndoController* undo = nullptr);
 
     PatientRecord& registerPatient(std::unique_ptr<PatientRecord> patient);
     void editPatient(const std::string& patientId,
@@ -22,6 +24,7 @@ public:
 
 private:
     ClinicDatabase& database_;
+    UndoController* undo_;
 };
 
 } // namespace scapms

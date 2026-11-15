@@ -4,6 +4,7 @@
 #include "scapms/model/PatientCategory.h"
 
 #include <string>
+#include <memory>
 #include <vector>
 
 namespace scapms {
@@ -30,6 +31,7 @@ public:
 
     virtual PatientCategory getCategory() const noexcept = 0;
     virtual std::string getDisplayDescription() const = 0;
+    virtual std::unique_ptr<PatientRecord> clone() const = 0;
 
 protected:
     void addAppointment(const Appointment& appointment);
