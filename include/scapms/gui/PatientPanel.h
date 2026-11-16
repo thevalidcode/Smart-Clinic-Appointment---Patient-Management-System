@@ -8,6 +8,7 @@ class QLineEdit;
 class QSpinBox;
 class QComboBox;
 class QTableWidget;
+class QPushButton;
 
 namespace scapms {
 
@@ -21,7 +22,10 @@ public slots:
 
 private slots:
     void addPatient();
+    void loadSelectedPatient();
+    void updatePatient();
     void deleteSelectedPatient();
+    void updateDynamicFields();
 
 private:
     ClinicManager& manager_;
@@ -30,7 +34,14 @@ private:
     QSpinBox* ageEdit_;
     QLineEdit* contactEdit_;
     QComboBox* typeCombo_;
+    QLineEdit* preferredDoctorEdit_;
+    QLineEdit* emergencyDescriptionEdit_;
+    QSpinBox* triageLevelEdit_;
+    QLineEdit* previousAppointmentEdit_;
+    QLineEdit* followUpReasonEdit_;
+    QPushButton* updateButton_;
     QTableWidget* table_;
+    QString editingPatientId_;
 };
 
 } // namespace scapms

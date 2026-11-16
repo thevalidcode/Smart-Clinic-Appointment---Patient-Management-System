@@ -48,6 +48,7 @@ target_include_directories(scapms_model
 find_package(Qt6 COMPONENTS Widgets QUIET)
 if(Qt6_FOUND)
     set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
     add_executable(scapms
         src/main.cpp
         src/gui/MainWindow.cpp
@@ -62,6 +63,7 @@ if(Qt6_FOUND)
         include/scapms/gui/QueuePanel.h
         include/scapms/gui/SearchSortPanel.h
         include/scapms/gui/ReportsPanel.h
+        resources/scapms.qrc
     )
     target_compile_definitions(scapms PRIVATE SCAPMS_WITH_QT)
     target_link_libraries(scapms PRIVATE scapms_model Qt6::Widgets)

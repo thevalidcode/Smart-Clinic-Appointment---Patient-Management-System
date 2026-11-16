@@ -9,6 +9,8 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QMainWindow>
+#include <QStatusBar>
 
 namespace scapms {
 
@@ -22,8 +24,18 @@ QueuePanel::QueuePanel(ClinicManager& manager, QWidget* parent)
     controls->addWidget(addButton);
     controls->addWidget(nextButton);
     auto* layout = new QVBoxLayout(this);
+    layout->setContentsMargins(26, 24, 26, 24);
+    layout->setSpacing(14);
+    auto* title = new QLabel("Waiting queue", this);
+    title->setObjectName("sectionTitle");
+    layout->addWidget(title);
+    auto* helper = new QLabel("Manage the FIFO patient flow and call the next patient when ready.", this);
+    helper->setObjectName("helperText");
+    layout->addWidget(helper);
     layout->addLayout(controls);
-    layout->addWidget(new QLabel("Waiting patients", this));
+    auto* queueTitle = new QLabel("Patients currently waiting", this);
+    queueTitle->setObjectName("helperText");
+    layout->addWidget(queueTitle);
     layout->addWidget(queueList_);
     connect(addButton, &QPushButton::clicked, this, &QueuePanel::addSelectedPatient);
     connect(nextButton, &QPushButton::clicked, this, &QueuePanel::callNextPatient);
@@ -47,6 +59,8 @@ void QueuePanel::addSelectedPatient() {
     try {
         manager_.queue().addPatient(patientCombo_->currentData().toString().toStdString());
         refresh();
+        if (auto* window = qobject_cast<QMainWindow*>(this->window()))
+            window->statusBar()->showMessage("Patient added to waiting queue", 5000);
     } catch (const ScapmsException& error) {
         QMessageBox::warning(this, "Unable to update queue", QString::fromStdString(error.what()));
     }

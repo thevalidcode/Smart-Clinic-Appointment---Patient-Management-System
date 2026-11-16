@@ -22,6 +22,7 @@ public:
 
 private slots:
     void saveData();
+    void saveDataAs();
     void loadData();
     void undoLastOperation();
     void refreshDashboard();

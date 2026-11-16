@@ -8,6 +8,7 @@
 #include <QTableWidget>
 #include <QTextEdit>
 #include <QVBoxLayout>
+#include <QLabel>
 
 namespace scapms {
 
@@ -21,6 +22,14 @@ ReportsPanel::ReportsPanel(ClinicManager& manager, QWidget* parent)
     table_->horizontalHeader()->setStretchLastSection(true);
     summary_->setReadOnly(true);
     auto* layout = new QVBoxLayout(this);
+    layout->setContentsMargins(26, 24, 26, 24);
+    layout->setSpacing(14);
+    auto* title = new QLabel("Operational reports", this);
+    title->setObjectName("sectionTitle");
+    layout->addWidget(title);
+    auto* helper = new QLabel("Generate concise summaries for attendance, workload, categories, and daily activity.", this);
+    helper->setObjectName("helperText");
+    layout->addWidget(helper);
     layout->addWidget(reportCombo_);
     layout->addWidget(generateButton);
     layout->addWidget(table_);

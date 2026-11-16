@@ -22,6 +22,7 @@ public slots:
 
 private slots:
     void scheduleAppointment();
+    void completeAppointment();
     void cancelAppointment();
 
 private:
